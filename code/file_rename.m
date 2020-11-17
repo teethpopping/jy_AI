@@ -1,14 +1,14 @@
 function file_rename(x)
-%¹¦ÄÜ£º¶ÔËùĞèÎÄ¼ş¼Ğ¼°Æä×ÓÎÄ¼şÖĞµÄcsvÎÄ¼şÖØÃüÃû¡ª¡ªÓÉ- NO.*-R0.csv µ½NO_*_R0.csv
+%åŠŸèƒ½ï¼šå¯¹æ‰€éœ€æ–‡ä»¶å¤¹åŠå…¶å­æ–‡ä»¶ä¸­çš„csvæ–‡ä»¶é‡å‘½åâ€”â€”ç”±- NO.*-R0.csv åˆ°NO_*_R0.csv
 %
-%ÊäÈë£º
-%      x:ĞèÒªÖØÃüÃûÎÄ¼ş¼ĞËùÔÚ¾ø¶ÔÂ·¾¶
+%è¾“å…¥ï¼š
+%      x:éœ€è¦é‡å‘½åæ–‡ä»¶å¤¹æ‰€åœ¨ç»å¯¹è·¯å¾„
 
 
-data_csv = dir(strcat(x,'\','**/*.csv'));%»ñÈ¡ËùÓĞcsvÎÄ¼ş
+data_csv = dir(strcat(x,'\','**/*.csv'));%è·å–æ‰€æœ‰csvæ–‡ä»¶
 data_csv = struct2cell(data_csv)';
 
-%½«ĞÂµÄÃû×Ö´æ´¢µ½data_name
+%å°†æ–°çš„åå­—å­˜å‚¨åˆ°data_name
 data_name = {};
 for i = 1 : length(data_csv)
     data_name{i,1} = split(data_csv{i,1},".");
@@ -17,14 +17,14 @@ for i = 1 : length(data_csv)
     data_name{i,1} = strcat(data_name{i,1},'.csv');
 end
 
-%»ñÈ¡csvÎÄ¼şµÄÍêÕûÂ·¾¶£¬±ãÓÚ½øĞĞmovefile²Ù×÷
+%è·å–csvæ–‡ä»¶çš„å®Œæ•´è·¯å¾„ï¼Œä¾¿äºè¿›è¡Œmovefileæ“ä½œ
 new_path = {};
 for i = 1 : length(data_csv)
     new_path{i,1} = strcat(data_csv{i,2},'\',data_csv{i,1});
 end
-new_path = cell2str(new_path,1); %µ÷ÓÃcell2strº¯Êı£¬½«cell×ª»¯Îªstring
+new_path = cell2str(new_path,1); %è°ƒç”¨cell2strå‡½æ•°ï¼Œå°†cellè½¬åŒ–ä¸ºstring
 data_name = cell2str(data_name,1);
-%¶ÔÎÄ¼ş½øĞĞÖØÃüÃû
+%å¯¹æ–‡ä»¶è¿›è¡Œé‡å‘½å
 for i = 1 : length(data_csv)
     movefile(new_path(i,1),strcat(data_csv{i,2},'\',data_name(i,1)));
 end
@@ -32,11 +32,11 @@ end
 
 function y = cell2str(x,position)
 
-%¹¦ÄÜ£º½«cellÖĞµÄÔªËØ×ª»»Îªstring
+%åŠŸèƒ½ï¼šå°†cellä¸­çš„å…ƒç´ è½¬æ¢ä¸ºstring
 %
-%ÊäÈë²ÎÊı£º
-%         x£º´ı×ª»¯µÄÔª°ûÊı×é£»
-%         position:´ı×ª»¯ÔªËØËùÔÚµÄÁĞµÄÎ»ÖÃ
+%è¾“å…¥å‚æ•°ï¼š
+%         xï¼šå¾…è½¬åŒ–çš„å…ƒèƒæ•°ç»„ï¼›
+%         position:å¾…è½¬åŒ–å…ƒç´ æ‰€åœ¨çš„åˆ—çš„ä½ç½®
 
 y = strings(length(x),1);
 for i = 1 : length(x)
