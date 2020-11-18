@@ -1,6 +1,7 @@
-%%
+function [sec_list] = time_start_end(time_table,start_colume,end_colume)
 % 读取始末时间，其中有NO2，3，7，9，10，11，12
-a = readtable('起末时间.csv');
-b = table2array(a);
+b = table2array(time_table);
 c = string(b);
-NO2 =  c(:,(1:2));%读取指定工况的始末时间段
+NO3 =  c(:,(start_colume:end_colume));%读取指定工况的始末时间段
+sec_list = time2sec(NO3);
+% clear a b c

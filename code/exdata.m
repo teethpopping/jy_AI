@@ -1,36 +1,36 @@
 function [out_data1, out_data2] = exdata(sec_list, matrix_name)
 %%
-%??é€šè¿‡å¯¹sec_listä¸­çš„matrix_nameå˜é‡è¿›è¡Œæ•°æ®çš„æå–
-%è¾“å…¥
-% sec_list:éœ€è¦æˆªå–çš„æ—¶é—´æ®µï¼Œå¯ä»¥ä¸ºn*2çš„çŸ©é˜µ [start_time end_time] æ—¶é—´æ ¼å¼ä¸ºå½“å¤©çš„ç§’æ•°
-% matrix_name:è¾“å…¥çš„éœ€è¦å¤„ç†çš„æ•°æ® table  [seq time temperature radio_heat]
-%è¾“å‡º
-% out_data: è¾“å‡ºçš„æ•°æ®ä¸ºæˆªå–åçš„table
-% data_name = who; %æ‰¾åˆ°å½“å‰workspaceé‡Œé¢æœ‰å“ªäº›
+%??Í¨¹ı¶Ôsec_listÖĞµÄmatrix_name±äÁ¿½øĞĞÊı¾İµÄÌáÈ¡
+%ÊäÈë
+% sec_list:ĞèÒª½ØÈ¡µÄÊ±¼ä¶Î£¬¿ÉÒÔÎªn*2µÄ¾ØÕó [start_time end_time] Ê±¼ä¸ñÊ½Îªµ±ÌìµÄÃëÊı
+% matrix_name:ÊäÈëµÄĞèÒª´¦ÀíµÄÊı¾İ table  [seq time temperature radio_heat]
+%Êä³ö
+% out_data: Êä³öµÄÊı¾İÎª½ØÈ¡ºóµÄtable
+% data_name = who; %ÕÒµ½µ±Ç°workspaceÀïÃæÓĞÄÄĞ©
 %%
-%åˆ¤æ–­å˜é‡æ˜¯å¦å­˜åœ¨äºå·¥ä½œåŒº
+%ÅĞ¶Ï±äÁ¿ÊÇ·ñ´æÔÚÓÚ¹¤×÷Çø
 % disp(matrix_name);
 % if exist(matrix_name)==0
 %     str = sprintf("var %s is not exist",matrix_name);
 %     disp(str);
 % end
 %%
-% è·å–æ—¶é—´æ•°æ®
+% »ñÈ¡Ê±¼äÊı¾İ
 % var_data = eval(matrix_name);
-var_data = evalin('base', matrix_name);% è·å–ä¼ å…¥çš„æ•°æ®
-get_time_data = var_data{:,2}(:); %è·å¾—æ—¶é—´æ•°æ®
+var_data = evalin('base', matrix_name);% »ñÈ¡´«ÈëµÄÊı¾İ
+get_time_data = var_data{:,2}(:); %»ñµÃÊ±¼äÊı¾İ
 %
-%è·å–æ‰€æœ‰sec_listä¸­çš„æ‰¾åˆ°startæ—¶é—´å¯¹åº”çš„index
-%seq_index:ç”¨äºå­˜å‚¨å¯¹åº”æ—¶é—´å¼€å§‹å’Œç»“æŸçš„åºåˆ—
+%»ñÈ¡ËùÓĞsec_listÖĞµÄÕÒµ½startÊ±¼ä¶ÔÓ¦µÄindex
+%seq_index:ÓÃÓÚ´æ´¢¶ÔÓ¦Ê±¼ä¿ªÊ¼ºÍ½áÊøµÄĞòÁĞ
 seq_index = [];
 for i = 1:size(sec_list,1)
     start_index = min(find(abs(get_time_data-sec_list(i,1))==min(abs(get_time_data-sec_list(i,1)))));
-    %æ‰¾åˆ°endæ—¶é—´å¯¹åº”çš„index
+    %ÕÒµ½endÊ±¼ä¶ÔÓ¦µÄindex
     end_index = max(find(abs(get_time_data-sec_list(i,2))==min(abs(get_time_data-sec_list(i,2)))));
     seq_index(i,:) = [start_index end_index];
 end
-%å‡†å¤‡è¾“å‡ºæ•°æ®
-rowout_size = max(seq_index(:,2)-seq_index(:,1)) + 1; %è§„å®šè¾“å‡ºçŸ©é˜µçš„å¤§å°
+%×¼±¸Êä³öÊı¾İ
+rowout_size = max(seq_index(:,2)-seq_index(:,1)) + 1; %¹æ¶¨Êä³ö¾ØÕóµÄ´óĞ¡
 out_data1 = zeros(rowout_size,size(sec_list,1));
 out_data2 = zeros(rowout_size,size(sec_list,1));
 for i = 1:size(sec_list,1)
